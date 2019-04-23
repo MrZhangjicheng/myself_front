@@ -1,179 +1,167 @@
-var myChart_b8d2925e97814e909868d8a9f0214825 = echarts.init(document.getElementById('cpu_hour'), 'light', {renderer: 'canvas'});
+var myChart_cpu_hour = echarts.init(document.getElementById('cpu_hour'), 'light', {renderer: 'canvas'});
 
-var option_b8d2925e97814e909868d8a9f0214825 = {
-    "title": [
+var data_mem;
+var data_time;
+$.ajax({
+	url:"http://localhost:8000/log/select_cpu",
+	type:"get",
+	dataType:"json",
+	async:false,
+	success:function (data) {
+		data_mem = data["data"]["data_mem"];
+		data_time = data["data"]["data_time"];
+
+		}
+})
+
+
+
+
+var option_cpu_hour = {
+    title: [
         {
-            "text": "CPU使用率日志[一小时内]",
-            "left": "center",
-            "top": "auto",
-            "textStyle": {
-                "fontSize": 18
+            text: "\u5185\u5b58\u4f7f\u7528\u7387\u65e5\u5fd7[1\u5c0f\u65f6\u5185]",
+            left: "center",
+            top: "auto",
+            textStyle: {
+                fontSize: 18
             },
-            "subtextStyle": {
-                "fontSize": 12
+            subtextStyle: {
+                fontSize: 12
             }
         }
     ],
-    "toolbox": {
-        "show": true,
-        "orient": "vertical",
-        "left": "95%",
-        "top": "center",
-        "feature": {
-            "saveAsImage": {
-                "show": true,
-                "title": "save as image"
+    toolbox: {
+        show: true,
+        orient: "vertical",
+        left: "95%",
+        top: "center",
+        feature: {
+            saveAsImage: {
+                show: true,
+                title: "save as image"
             },
-            "restore": {
-                "show": true,
-                "title": "restore"
+            restore: {
+                show: true,
+                title: "restore"
             },
-            "dataView": {
-                "show": true,
-                "title": "data view"
+            dataView: {
+                show: true,
+                title: "data view"
             }
         }
     },
-    "series_id": 6726348,
-    "tooltip": {
-        "trigger": "item",
-        "triggerOn": "mousemove|click",
-        "axisPointer": {
-            "type": "line"
+    series_id: 7391233,
+    tooltip: {
+        trigger: "item",
+        triggerOn: "mousemove|click",
+        axisPointer: {
+            type: "line"
         },
-        "textStyle": {
-            "fontSize": 14
+        textStyle: {
+            fontSize: 14
         },
-        "backgroundColor": "rgba(50,50,50,0.7)",
-        "borderColor": "#333",
-        "borderWidth": 0
+        backgroundColor: "rgba(50,50,50,0.7)",
+        borderColor: "#333",
+        borderWidth: 0
     },
-    "series": [
+    series: [
         {
-            "type": "line",
-            "symbol": "none",
-            "symbolSize": 4,
-            "smooth": false,
-            "step": false,
-            "showSymbol": true,
-            "data": [
-                [
-                    "09:16:44",
-                    27.1
-                ],
-                [
-                    "09:16:49",
-                    23.5
-                ],
-                [
-                    "09:16:54",
-                    15.1
-                ],
-                [
-                    "09:16:59",
-                    19.5
-                ],
-                [
-                    "09:17:04",
-                    20.9
-                ],
-                [
-                    "09:17:09",
-                    18.8
-                ],
-                [
-                    "09:17:15",
-                    23.6
-                ]
-            ],
-            "label": {
-                "normal": {
-                    "show": false,
-                    "position": "top",
-                    "textStyle": {
-                        "fontSize": 12
+            type: "line",
+            symbol: "none",
+            symbolSize: 4,
+            smooth: false,
+            step: false,
+            showSymbol: true,
+            data: data_mem,
+            label: {
+                normal: {
+                    show: false,
+                    position: "top",
+                    textStyle: {
+                        fontSize: 12
                     }
                 },
-                "emphasis": {
-                    "show": true,
-                    "textStyle": {
-                        "fontSize": 12
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: 12
                     }
                 }
             },
-            "lineStyle": {
-                "normal": {
-                    "width": 1,
-                    "opacity": 0.2,
-                    "curveness": 0,
-                    "type": "solid"
+            lineStyle: {
+                normal: {
+                    width: 1,
+                    opacity: 0.2,
+                    curveness: 0,
+                    type: "solid"
                 }
             },
-            "areaStyle": {
-                "opacity": 0.4,
-                "color": "green"
+            areaStyle: {
+                opacity: 0.4,
+                colo: "red"
             },
-            "markPoint": {
-                "data": [
+            markPoint: {
+                data: [
                     {
-                        "type": "average",
-                        "name": "mean-Value",
-                        "symbol": "pin",
-                        "symbolSize": 50,
-                        "label": {
-                            "normal": {
-                                "textStyle": {
-                                    "color": "#fff"
+                        type: "average",
+                        name: "mean-Value",
+                        symbol: "pin",
+                        symbolSize: 50,
+                        label: {
+                            normal: {
+                                textStyle: {
+                                    color: "#fff"
                                 }
                             }
                         }
                     },
                     {
-                        "type": "max",
-                        "name": "Maximum",
-                        "symbol": "pin",
-                        "symbolSize": 50,
-                        "label": {
-                            "normal": {
-                                "textStyle": {
-                                    "color": "#fff"
+                        type: "max",
+                        name: "Maximum",
+                        symbol: "pin",
+                        symbolSize: 50,
+                        label: {
+                            normal: {
+                                textStyle: {
+                                    color: "#fff"
                                 }
                             }
                         }
                     },
                     {
-                        "type": "min",
-                        "name": "Minimum",
-                        "symbol": "pin",
-                        "symbolSize": 50,
-                        "label": {
-                            "normal": {
-                                "textStyle": {
-                                    "color": "#fff"
+                        type: "min",
+                        name: "Minimum",
+                        symbol: "pin",
+                        symbolSize: 50,
+                        label: {
+                            normal: {
+                                textStyle: {
+                                    color: "#fff"
                                 }
                             }
                         }
                     }
                 ]
             },
-            "markLine": {
-                "data": [
+            markLine: {
+                data: [
                     {
-                        "type": "average",
-                        "name": "mean-Value"
+                        type: "average",
+                        name: "mean-Value"
                     },
                     {
-                        "type": "max",
-                        "name": "Maximum"
+                        type: "max",
+                        name: "Maximum"
                     },
                     {
-                        "type": "min",
-                        "name": "Minimum"
+                        type: "min",
+                        name: "Minimum"
                     }
                 ],
-                "symbolSize": 10
+                symbolSize: 10
             },
-            "seriesId": 6726348
+            seriesId: 7391233
         }
     ],
     "legend": [
@@ -222,51 +210,44 @@ var option_b8d2925e97814e909868d8a9f0214825 = {
                     "fontSize": 12
                 }
             },
-            "data": [
-                "09:16:44",
-                "09:16:49",
-                "09:16:54",
-                "09:16:59",
-                "09:17:04",
-                "09:17:09",
-                "09:17:15"
-            ]
+            data: data_time,
+
         }
     ],
-    "yAxis": [
+    yAxis: [
         {
-            "show": true,
-            "nameLocation": "middle",
-            "nameGap": 25,
-            "nameTextStyle": {
-                "fontSize": 14
+            show: true,
+            nameLocation: "middle",
+            nameGap: 25,
+            nameTextStyle: {
+                fontSize: 14
             },
-            "axisTick": {
-                "alignWithLabel": false
+            axisTick: {
+                alignWithLabel: false
             },
-            "inverse": false,
-            "boundaryGap": true,
-            "type": "value",
-            "splitLine": {
-                "show": true
+            inverse: false,
+            boundaryGap: true,
+            type: "value",
+            splitLine: {
+                show: true
             },
-            "axisLine": {
-                "lineStyle": {
-                    "width": 1
+            axisLine: {
+                lineStyle: {
+                    width: 1
                 }
             },
-            "axisLabel": {
-                "interval": "auto",
-                "formatter": "{value} ",
-                "rotate": 0,
-                "margin": 8,
-                "textStyle": {
-                    "fontSize": 12
+            axisLabel: {
+                interval: "auto",
+                formatter: "{value} ",
+                rotate: 0,
+                margin: 8,
+                textStyle: {
+                    fontSize: 12
                 }
             }
         }
     ],
-    "color": [
+    color: [
         "#c23531",
         "#2f4554",
         "#61a0a8",
@@ -293,14 +274,14 @@ var option_b8d2925e97814e909868d8a9f0214825 = {
         "#918597",
         "#f6f5ec"
     ],
-    "dataZoom": [
+    dataZoom: [
         {
-            "show": true,
-            "type": "slider",
-            "start": 0,
-            "end": 100,
-            "orient": "horizontal"
+            show: true,
+            type: "slider",
+            start: 0,
+            end: 100,
+            orient: "horizontal"
         }
     ]
 };
-myChart_b8d2925e97814e909868d8a9f0214825.setOption(option_b8d2925e97814e909868d8a9f0214825);
+myChart_cpu_hour.setOption(option_cpu_hour);

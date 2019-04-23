@@ -1,9 +1,9 @@
-var myChart_c9cc51a97d6e4316988361be18be471f = echarts.init(document.getElementById('mem_hour'), 'light', {renderer: 'canvas'});
+var myChart_mem_hour = echarts.init(document.getElementById('mem_hour'), 'light', {renderer: 'canvas'});
 
 var data_mem;
 var data_time;
 $.ajax({
-	url:"http://localhost:8000/log/select",
+	url:"http://localhost:8000/log/select_mem",
 	type:"get",
 	dataType:"json",
 	async:false,
@@ -17,7 +17,7 @@ $.ajax({
 
 
 
-var option_c9cc51a97d6e4316988361be18be471f = {
+var option_mem_hour = {
     title: [
         {
             text: "\u5185\u5b58\u4f7f\u7528\u7387\u65e5\u5fd7[1\u5c0f\u65f6\u5185]",
@@ -284,4 +284,4 @@ var option_c9cc51a97d6e4316988361be18be471f = {
         }
     ]
 };
-myChart_c9cc51a97d6e4316988361be18be471f.setOption(option_c9cc51a97d6e4316988361be18be471f);
+myChart_mem_hour.setOption(option_mem_hour);
