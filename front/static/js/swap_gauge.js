@@ -1,6 +1,4 @@
-var chart1 = echarts.init(document.getElementById("swap"));
-	
-var colorTemplate1 = [[0.2, "rgba(255,0,0,0.8)"], [0.8, "rgba(0,255,255,0.8)"], [1, "rgba(0,255,0,0.8)"]];
+
 	
 function swap_info(swap_info) {
 	 document.getElementById("swap_percent").innerText = swap_info["data"]['percent'];
@@ -12,6 +10,7 @@ function swap_info(swap_info) {
 }
 
 var data1
+var tmp = function () {
 $.ajax({
 	url:"http://localhost:8000/index/swap",
 	type:"get",
@@ -22,6 +21,7 @@ $.ajax({
 		value: data["data"]["percent"]
 	}]
 	swap_info(data)
+	swap()
 	
 	
 		
@@ -29,8 +29,13 @@ $.ajax({
 	
 		}
 });
+}
 
-	  
+window.setInterval(tmp,1000);
+var swap = function () {
+	var chart1 = echarts.init(document.getElementById("swap"));
+	
+	var colorTemplate1 = [[0.2, "rgba(255,0,0,0.8)"], [0.8, "rgba(0,255,255,0.8)"], [1, "rgba(0,255,0,0.8)"]];
 	// 指定图表的配置项和数据
 	var option = {
 		
@@ -152,4 +157,5 @@ $.ajax({
 	
 	// 使用刚指定的配置项和数据显示图表
 	chart1.setOption(option)
+}
 

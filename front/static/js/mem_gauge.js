@@ -1,6 +1,4 @@
-var chart1 = echarts.init(document.getElementById("mem"));
-	
-var colorTemplate1 = [[0.2, "rgba(255,0,0,0.8)"], [0.8, "rgba(0,255,255,0.8)"], [1, "rgba(0,255,0,0.8)"]];
+
 
 
 //内存更新
@@ -17,7 +15,7 @@ function mem_info(mem_info) {
 var data1
 
 
-
+ var tmp = function () {
 $.ajax({
 	url:"http://localhost:8000/index/mem",
 	type:"get",
@@ -28,6 +26,7 @@ $.ajax({
 		value: data["data"]["percent"]
 	}]
 	mem_info(data)
+	mem()
 	
 	
 		
@@ -35,14 +34,24 @@ $.ajax({
 	
 		}
 });
+}
+console.log(data1)
+
+window.setInterval(tmp,1000);
+
+  
+
+
 
 
 
 
 			
-
+var mem = function () {
 			
+var chart1 = echarts.init(document.getElementById("mem"));
 	
+var colorTemplate1 = [[0.2, "rgba(255,0,0,0.8)"], [0.8, "rgba(0,255,255,0.8)"], [1, "rgba(0,255,0,0.8)"]];
 	  
 	// 指定图表的配置项和数据
 	var option = {
@@ -167,5 +176,5 @@ $.ajax({
 	// 使用刚指定的配置项和数据显示图表
 	chart1.setOption(option)
 	
-
+}
 

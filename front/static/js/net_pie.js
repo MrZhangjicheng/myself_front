@@ -22,26 +22,26 @@ function all_net(net){
  	document.getElementById("tb_net").innerHTML = net;
 }
 
-var myChart_net1 = echarts.init(document.getElementById('net1'), 'light', {renderer: 'canvas'});
-
-var enol_data_pkg =[];
-var enol_data_byt =[];
-var enol_data_pkg_dict1={};
-var enol_data_byt_dict1={};
-var enol_data_pkg_dict2={};
-var enol_data_byt_dict2={};
 
 
-var lo_data_pkg =[];
-var lo_data_byt =[];
-var lo_data_pkg_dict1={};
-var lo_data_byt_dict1={};
-var lo_data_pkg_dict2={};
-var lo_data_byt_dict2={};
+var enol_data_pkg ;
+var enol_data_byt;
+var enol_data_pkg_dict1;
+var enol_data_byt_dict1;
+var enol_data_pkg_dict2;
+var enol_data_byt_dict2;
+
+
+var lo_data_pkg ;
+var lo_data_byt ;
+var lo_data_pkg_dict1;
+var lo_data_byt_dict1;
+var lo_data_pkg_dict2;
+var lo_data_byt_dict2;
 
 
 
-
+var tmp = function () {
 $.ajax({
 	url:"http://localhost:8000/index/net",
 	type:"get",
@@ -49,39 +49,35 @@ $.ajax({
 	async:false,
 	success:function (data) {
 		all_net(data)
-		enol_data_pkg_dict1["name"] = "发包数";
-		enol_data_pkg_dict1["value"] = data["data"][1]["packets_sent"];
-		enol_data_pkg_dict2["name"] = "收包数";
-		enol_data_pkg_dict2["value"] = data["data"][1]["packets_recv"];
-		enol_data_pkg.push(enol_data_pkg_dict1);
-		enol_data_pkg.push(enol_data_pkg_dict2);
-		enol_data_byt_dict1["name"] = "发字节";
-		enol_data_byt_dict1["value"] = data["data"][1]["bytes_sent"];
-		enol_data_byt_dict2["name"] = "收字节";
-		enol_data_byt_dict2["value"] = data["data"][1]["bytes_recv"];
-		enol_data_byt.push(enol_data_byt_dict1);
-		enol_data_byt.push(enol_data_byt_dict2);
 		
-		lo_data_pkg_dict1["name"] = "发包数";
-		lo_data_pkg_dict1["value"] = data["data"][0]["packets_sent"];
-		lo_data_pkg_dict2["name"] = "收包数";
-		lo_data_pkg_dict2["value"] = data["data"][0]["packets_recv"];
-		lo_data_pkg.push(lo_data_pkg_dict1);
-		lo_data_pkg.push(lo_data_pkg_dict2);
-		lo_data_byt_dict1["name"] = "发字节";
-		lo_data_byt_dict1["value"] = data["data"][0]["bytes_sent"];
-		lo_data_byt_dict2["name"] = "收字节";
-		lo_data_byt_dict2["value"] = data["data"][0]["bytes_recv"];
-		lo_data_byt.push(lo_data_byt_dict1);
-		lo_data_byt.push(lo_data_byt_dict2);
+		enol_data_pkg_dict1 = {"name":"发包数","value":data["data"][1]["packets_sent"]};
+		enol_data_pkg_dict2 = {"name":"收包数","value":data["data"][1]["packets_recv"]};
+		enol_data_pkg=[enol_data_pkg_dict1,enol_data_pkg_dict2];
+		enol_data_byt_dict1={"name":"发字节","value":data["data"][1]["bytes_sent"]};
+		enol_data_byt_dict2={"name":"收字节","value":data["data"][1]["bytes_recv"]};
+		enol_data_byt=[enol_data_byt_dict1,enol_data_byt_dict2];
+		
+		
+		lo_data_pkg_dict1 = {"name":"发包数","value":data["data"][0]["packets_sent"]};
+		lo_data_pkg_dict2 = {"name":"收包数","value":data["data"][0]["packets_recv"]};
+		lo_data_pkg=[lo_data_pkg_dict1,lo_data_pkg_dict2];
+		lo_data_byt_dict1={"name":"发字节","value":data["data"][0]["bytes_sent"]};
+		lo_data_byt_dict2={"name":"收字节","value":data["data"][0]["bytes_recv"]};
+		lo_data_byt=[lo_data_byt_dict1,lo_data_byt_dict2];
+		
+		net1();
+		net2();
 		
 		
 		
 		
 		}
 })
+}
 
-
+window.setInterval(tmp,1000);
+var net1 = function () {
+var myChart_net1 = echarts.init(document.getElementById('net1'), 'light', {renderer: 'canvas'});
 var option_net1 = {
     title: [
         {
@@ -248,11 +244,11 @@ var option_net1 = {
         "#f05b72"
     ]
 };
-myChart_net1.setOption(option_net1);
+	myChart_net1.setOption(option_net1);
 
+}
 
-
-
+var net2 = function () {
 var myChart_net2 = echarts.init(document.getElementById('net2'), 'light', {renderer: 'canvas'});
 
 var option_net2 = {
@@ -401,6 +397,7 @@ var option_net2 = {
     ]
 };
 myChart_net2.setOption(option_net2);
+}
 
 
 

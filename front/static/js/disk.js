@@ -22,7 +22,7 @@ function all_disk(disk){
 
 
 
-
+var tmp = function () {
 $.ajax({
 	url:"http://localhost:8000/index/disk",
 	type:"get",
@@ -32,3 +32,6 @@ $.ajax({
 		
 		}
 })
+}
+
+window.setInterval(tmp,1000)

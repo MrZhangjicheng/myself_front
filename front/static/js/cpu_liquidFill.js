@@ -16,35 +16,44 @@ function all_cpu(cpu){
  	document.getElementById("tb_cpu_per").innerHTML = cpu_per;
 }
 
-
-
-var chart = echarts.init(document.getElementById("cpu_avg"));
-var cpu_avg = [];
-
-
-
-
-
-	
+var cpu_avg;
+var tmp = function () {
 	$.ajax({
 	url:"http://localhost:8000/index/cpu",
 	type:"get",
 	dataType:"json",
 	async:false,
 	success:function (data) {
-		cpu_avg.push(data["data"]["percent_avg"]/100);
-		
-		var option = {	
+		cpu_avg = [data["data"]["percent_avg"]/100];
+		all_cpu(data);	
+		cpu()	
+		}
+		});
+
+}
+console.log(cpu_avg);
+window.setInterval(tmp,1000);
+
+
+var cpu = function () {
+	
+	var chart = echarts.init(document.getElementById("cpu_avg"));
+	var option = {	
 			series:[{
 			type: 'liquidFill',
       	data:cpu_avg,     
 			}]
 		};
 		chart.setOption(option);
-		all_cpu(data);
-		
-		}
-		});
+
+	
+ }
+
+
+
+
+
+
 
 
 
